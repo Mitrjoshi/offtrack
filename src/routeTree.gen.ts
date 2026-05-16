@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HabitsHabitIdRouteImport } from './routes/habits/$habitId'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,30 +37,34 @@ const HabitsHabitIdRoute = HabitsHabitIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/insights': typeof InsightsRoute
   '/settings': typeof SettingsRoute
   '/habits/$habitId': typeof HabitsHabitIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/insights': typeof InsightsRoute
   '/settings': typeof SettingsRoute
   '/habits/$habitId': typeof HabitsHabitIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/insights': typeof InsightsRoute
   '/settings': typeof SettingsRoute
   '/habits/$habitId': typeof HabitsHabitIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/settings' | '/habits/$habitId'
+  fullPaths: '/' | '/insights' | '/settings' | '/habits/$habitId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/settings' | '/habits/$habitId'
-  id: '__root__' | '/' | '/settings' | '/habits/$habitId'
+  to: '/' | '/insights' | '/settings' | '/habits/$habitId'
+  id: '__root__' | '/' | '/insights' | '/settings' | '/habits/$habitId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InsightsRoute: typeof InsightsRoute
   SettingsRoute: typeof SettingsRoute
   HabitsHabitIdRoute: typeof HabitsHabitIdRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InsightsRoute: InsightsRoute,
   SettingsRoute: SettingsRoute,
   HabitsHabitIdRoute: HabitsHabitIdRoute,
 }

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTable, useStore } from "tinybase/ui-react";
-import { Plus, Flame, Target, Settings } from "lucide-react";
+import { Plus, Flame, Target, Settings, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNow } from "@/hooks/useNow";
@@ -76,11 +76,18 @@ function Index() {
                 Track what you want to change
               </p>
             </div>
-            <Link to="/settings">
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Settings className="h-5 w-5" />
-              </Button>
-            </Link>
+            <div className="flex gap-1">
+              <Link to="/insights">
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <TrendingUp className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/settings">
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Settings className="h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {habitIds.length > 0 && (
